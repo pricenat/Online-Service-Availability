@@ -8,7 +8,9 @@ URL = "http://127.0.0.1:6003"
 
 def test_availability():
     print("=== Test 1: Online Service Availablity ===")
-    payload = {"url": "http://127.0.0.1:6002"}
+    # payload = {"url": "http://127.0.0.1:6002"}
+    payload = {"server_ip": "http://127.0.0.1",
+               "server_port": "6002"}
 
     response = requests.get(URL, json=payload)
     response_text = response.text

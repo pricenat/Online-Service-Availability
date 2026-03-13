@@ -22,11 +22,14 @@ class RequestHandler(BaseHTTPRequestHandler):
         if not isinstance(request_body, dict):
             self.send_error(400, "JSON body must be an object")
             return
-        if request_body.get("url") is None:
+        if request_body.get("url") is None and (request_body.get("server_ip") is None and request_body.get("server_port") is None):
             self.send_error(400, "Missing server IP address")
             return
 
-        url = request_body["url"]
+        if request_body.get("url"):
+            url = request_body["url"]
+        else:
+            url = request_body.get("server_ip") + ":" + request_body.get("server_port")
         response = requests.get(url)
         response_code = response.status_code
         response_code_str = str(response_code)
